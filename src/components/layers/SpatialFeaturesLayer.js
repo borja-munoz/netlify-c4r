@@ -8,7 +8,9 @@ export const SPATIAL_FEATURES_LAYER_ID = 'spatialFeaturesLayer';
 
 export default function SpatialFeaturesLayer() {
   const { spatialFeaturesLayer } = useSelector((state) => state.carto.layers);
-  const source = useSelector((state) => selectSourceById(state, spatialFeaturesLayer?.source));
+  const source = useSelector((state) =>
+    selectSourceById(state, spatialFeaturesLayer?.source)
+  );
   const cartoLayerProps = useCartoLayerProps({ source });
 
   if (spatialFeaturesLayer && source) {
@@ -16,7 +18,8 @@ export default function SpatialFeaturesLayer() {
       ...cartoLayerProps,
       id: SPATIAL_FEATURES_LAYER_ID,
       geoColumn: 'h3',
-      aggregationExp: 'SUM(population) as population, AVG(elevation) as elevation, ANY_VALUE(urbanity) as urbanity',
+      aggregationExp:
+        'SUM(population) as population, AVG(elevation) as elevation, ANY_VALUE(urbanity) as urbanity',
       getFillColor: colorBins({
         attr: 'elevation',
         domain: [100, 500, 1000, 2000, 3000],
